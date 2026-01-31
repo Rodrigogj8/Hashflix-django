@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home Filmes
+{% endblock title %}
+
+{% block content %}
+<h1>Você está na página de filmes</h1>
+
+{% for filme in filmes %}
+<div class="flex items-start gap-4 py-4 border-b border-gray-700">
+    <img src="{{ filme.thumb.url }}" alt="{{ filme.titulo }} Capa" class="w-32 h-auto rounded-md">
+    <a href="{% url 'filme:detalhesfilme' filme.pk %}"><h2 class="text-xl font-semibold">{{ filme.titulo }}</h2></a>
+    <p class="text-gray-300">{{ filme.descricao }}</p>
+</div>
+{% empty %}
+<p>Nenhum filme encontrado.</p>
+{% endfor %}
+
+{% endblock %}

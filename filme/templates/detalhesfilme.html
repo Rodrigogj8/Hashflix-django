@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+Detalhes do Filme
+{% endblock title %}
+
+{% block content %}
+
+<div class="filme-container">
+
+    <div class="filme-card">
+
+        <div class="filme-thumb">
+            <img src="{{ filme.thumb.url }}" alt="{{ filme.titulo }}">
+        </div>
+
+        <div class="filme-info">
+            <h1>{{ filme }}</h1>
+            <p>{{ filme.descricao }}</p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
