@@ -6,19 +6,59 @@ Detalhes do Filme
 
 {% block content %}
 
-<div class="filme-container">
+<div class="netflix-container">
 
-    <div class="filme-card">
+    <div class="filme-topo">
 
+        <!-- CAPA -->
         <div class="filme-thumb">
             <img src="{{ filme.thumb.url }}" alt="{{ filme.titulo }}">
         </div>
 
+        <!-- INFO -->
         <div class="filme-info">
-            <h1>{{ filme }}</h1>
-            <p>{{ filme.descricao }}</p>
+            <h1 class="titulo">{{ filme }}</h1>
+            <p class="descricao">{{ filme.descricao }}</p>
+
+            {% if filme.episodios.first %}
+            <a href="{{ filme.episodios.first.video }}" class="btn-play" target="_blank">
+                Assistir
+            </a>
+            {% endif %}
         </div>
 
+    </div>
+
+    <!-- EPISODIOS -->
+    <div class="secao">
+        <h3>Episódios</h3>
+
+        <div class="episodios-lista">
+            {% for episodio in filme.episodios.all %}
+            <a href="{{ episodio.video }}" target="_blank" class="episodio-item">
+                <span>Episódio {{ forloop.counter }} - {{ episodio.titulo }}</span>
+                <span class="assistir">Assistir</span>
+            </a>
+            {% empty %}
+            <p class="vazio">Nenhum episódio disponível.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- RELACIONADOS -->
+    <div class="secao">
+        <h3>Mais como este</h3>
+
+        <div class="relacionados">
+            {% for filme in filmes_relacionados %}
+            <a href="{% url 'filme:detalhesfilme' filme.pk %}" class="relacionado-card">
+                <img src="{{ filme.thumb.url }}" alt="{{ filme }}">
+                <span>{{ filme }}</span>
+            </a>
+            {% empty %}
+            <p class="vazio">Nenhum filme relacionado.</p>
+            {% endfor %}
+        </div>
     </div>
 
 </div>
