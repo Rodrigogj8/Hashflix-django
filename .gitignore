@@ -14,6 +14,9 @@ local_settings.py
 db.sqlite3
 media/
 
+# Assets locais / curso (não versionar)
+Imagens Cursos/
+
 # IDE
 .idea/
 .vscode/

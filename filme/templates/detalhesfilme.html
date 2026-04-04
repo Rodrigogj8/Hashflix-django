@@ -1,66 +1,120 @@
 {% extends "base.html" %}
 
 {% block title %}
-Detalhes do Filme
+{{ object.titulo }} | Netflix Clone
 {% endblock title %}
 
 {% block content %}
 
-<div class="netflix-container">
+<main class="bg-primary_black min-h-screen w-full text-white">
 
-    <div class="filme-topo">
+    <!-- HERO / CAPA -->
+    <section 
+        class="h-screen relative bg-no-repeat bg-cover flex items-end p-8"
+        style="background-image: url('{{ object.thumb.url }}');"
+    >
+        <div class="bg-black bg-opacity-70 p-6 rounded-md max-w-2xl">
+            <h1 class="text-5xl font-bold mb-4">
+                {{ object.titulo }}
+            </h1>
 
-        <!-- CAPA -->
-        <div class="filme-thumb">
-            <img src="{{ filme.thumb.url }}" alt="{{ filme.titulo }}">
-        </div>
+            <p class="mb-4 text-lg">
+                {{ object.descricao|slice:":200" }}...
+            </p>
 
-        <!-- INFO -->
-        <div class="filme-info">
-            <h1 class="titulo">{{ filme }}</h1>
-            <p class="descricao">{{ filme.descricao }}</p>
-
-            {% if filme.episodios.first %}
-            <a href="{{ filme.episodios.first.video }}" class="btn-play" target="_blank">
-                Assistir
+            {% if object.episodios.first %}
+            <a href="{{ object.episodios.first.video }}" target="_blank"
+               class="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-semibold hover:bg-gray-300 transition">
+                ▶ Assistir
             </a>
             {% endif %}
         </div>
+    </section>
 
-    </div>
 
-    <!-- EPISODIOS -->
-    <div class="secao">
-        <h3>Episódios</h3>
+    <!-- DESCRIÇÃO COMPLETA -->
+    <section class="py-12 flex justify-center">
+        <div class="w-10/12 max-w-4xl">
 
-        <div class="episodios-lista">
-            {% for episodio in filme.episodios.all %}
-            <a href="{{ episodio.video }}" target="_blank" class="episodio-item">
-                <span>Episódio {{ forloop.counter }} - {{ episodio.titulo }}</span>
-                <span class="assistir">Assistir</span>
-            </a>
-            {% empty %}
-            <p class="vazio">Nenhum episódio disponível.</p>
-            {% endfor %}
+            <h2 class="text-3xl font-semibold mb-4">
+                Sobre o Filme
+            </h2>
+
+            <p class="text-lg mb-4">
+                {{ object.descricao }}
+            </p>
+
+            <p class="text-gray-400">
+                Visualizações: {{ object.visualizacoes }}
+            </p>
+
         </div>
-    </div>
+    </section>
+
+
+    <!-- EPISÓDIOS -->
+    <section class="py-12 flex justify-center bg-black bg-opacity-40">
+        <div class="w-10/12 max-w-5xl">
+
+            <h2 class="text-3xl font-semibold mb-6">
+                Episódios
+            </h2>
+
+            <div class="space-y-4">
+                {% for episodio in object.episodios.all %}
+                <a href="{{ episodio.video }}" target="_blank"
+                   class="block bg-gray-800 hover:bg-gray-700 p-4 rounded-md transition">
+
+                    <span class="font-medium">
+                        Episódio {{ forloop.counter }} - {{ episodio.titulo }}
+                    </span>
+
+                </a>
+                {% empty %}
+                <p class="text-gray-400">
+                    Nenhum episódio disponível.
+                </p>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
 
     <!-- RELACIONADOS -->
-    <div class="secao">
-        <h3>Mais como este</h3>
+    <section class="py-12 flex justify-center">
+        <div class="w-10/12 max-w-6xl">
 
-        <div class="relacionados">
-            {% for filme in filmes_relacionados %}
-            <a href="{% url 'filme:detalhesfilme' filme.pk %}" class="relacionado-card">
-                <img src="{{ filme.thumb.url }}" alt="{{ filme }}">
-                <span>{{ filme }}</span>
-            </a>
-            {% empty %}
-            <p class="vazio">Nenhum filme relacionado.</p>
-            {% endfor %}
+            <h2 class="text-3xl font-semibold mb-6">
+                Mais como este
+            </h2>
+
+            <div class="flex flex-wrap gap-6">
+
+                {% for filme in filmes_relacionados %}
+                <a href="{% url 'filme:detalhesfilme' filme.pk %}"
+                   class="w-48 hover:scale-105 transition transform">
+
+                    <img src="{{ filme.thumb.url }}"
+                         alt="{{ filme.titulo }}"
+                         class="rounded-md mb-2">
+
+                    <p class="text-sm text-gray-300">
+                        {{ filme.titulo }}
+                    </p>
+
+                </a>
+                {% empty %}
+                <p class="text-gray-400">
+                    Nenhum filme relacionado.
+                </p>
+                {% endfor %}
+
+            </div>
+
         </div>
-    </div>
+    </section>
 
-</div>
+</main>
 
 {% endblock %}

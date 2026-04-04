@@ -62,6 +62,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'filme.novos_context.lista_filmes_recentes',
+                'filme.novos_context.lista_filmes_emalta',
+                'filme.novos_context.filmes_destaque',
             ],
         },
     },
@@ -83,7 +86,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
-
+AUTH_USER_MODEL = "filme.Usuario"
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -124,3 +127,6 @@ STATICFILES_DIRS =[
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_REDIRECT_URL = 'hfilme:homefilmes'
+LOGIN_URL = 'filme:login'
