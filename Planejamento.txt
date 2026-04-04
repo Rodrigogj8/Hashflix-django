@@ -4,6 +4,7 @@
     - Username
     - Senha
     - Filmes já Vistos
+    - Editar Perfil
 
 - Filmes/Séries
     - thumb
