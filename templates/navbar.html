@@ -1,57 +1,74 @@
 {% load static %}
-<nav class="w-full flex items-center justify-between px-6 py-3 bg-black bg-opacity-90 fixed top-0 z-50 shadow-md">
 
-    <!-- Logo -->
-    <div class="flex items-center">
-        <a href="/">
-            <img class="w-32 md:w-44" src="{% static 'images/Hashflix.png' %}" alt="Hashflix Logo">
-        </a>
-    </div>
+<nav class="fixed top-0 z-50 w-full border-b border-transparent bg-zinc-950/80 backdrop-blur-md transition-colors duration-300">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-6">
 
-    <!-- Área da direita -->
-    <div class="flex items-center gap-4">
-
-        {% if user.is_authenticated %}
-
-            <!-- Busca -->
-            <form method="get" action="{% url 'filme:pesquisafilme' %}" class="flex items-center bg-white rounded-md overflow-hidden">
-                <input 
-                    type="text" 
-                    name="query" 
-                    placeholder="Pesquisar..." 
-                    class="px-3 py-1 text-black outline-none w-40 md:w-56"
+        <div class="flex shrink-0 items-center">
+            <a href="/" class="block transition-opacity hover:opacity-90">
+                <img
+                    src="{% static 'images/Hashflix.png' %}"
+                    alt="Hashflix"
+                    class="h-8 w-auto md:h-10"
                 >
-                <button 
-                    type="submit" 
-                    class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 transition"
-                >
-                    Buscar
-                </button>
-            </form>
+            </a>
+        </div>
 
-            <!-- Botões -->
-            <div class="flex items-center gap-2">
-                <a href="{% url 'filme:editarperfil' %}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-md transition">
-                    Editar Perfil
+        <div class="flex min-w-0 flex-1 items-center justify-end gap-3 md:gap-4">
+
+            {% if user.is_authenticated %}
+
+                <form
+                    method="get"
+                    action="{% url 'filme:pesquisafilme' %}"
+                    class="flex min-w-0 max-w-[200px] flex-1 justify-end sm:max-w-sm md:max-w-md"
+                >
+                    <div class="flex w-full overflow-hidden rounded-lg border border-white/15 bg-white/5 shadow-inner">
+                        <input
+                            type="text"
+                            name="query"
+                            placeholder="Buscar filmes…"
+                            class="min-w-0 flex-1 border-0 bg-transparent px-2 py-2 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-0 sm:px-3"
+                            autocomplete="off"
+                        >
+                        <button
+                            type="submit"
+                            class="shrink-0 bg-red-600 px-2 py-2 text-xs font-medium text-white transition hover:bg-red-700 sm:px-4 sm:text-sm"
+                        >
+                            Buscar
+                        </button>
+                    </div>
+                </form>
+
+                <div class="flex shrink-0 items-center gap-2">
+                    <a
+                        href="{% url 'filme:editarperfil' request.user.pk %}"
+                        class="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white transition hover:border-white/25 hover:bg-white/10 md:px-4"
+                    >
+                        Perfil
+                    </a>
+
+                    <form method="post" action="{% url 'filme:logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button
+                            type="submit"
+                            class="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-red-700 md:px-4"
+                        >
+                            Sair
+                        </button>
+                    </form>
+                </div>
+
+            {% else %}
+
+                <a
+                    href="{% url 'filme:login' %}"
+                    class="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
+                >
+                    Entrar
                 </a>
 
-                <form method="post" action="{% url 'filme:logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-md transition">
-        Sair
-    </button>
-</form>
-            </div>
+            {% endif %}
 
-        {% else %}
-
-            <!-- Login -->
-            <a href="{% url 'filme:login' %}" class="bg-red-600 hover:bg-red-700 text-white px-5 py-1 rounded-md transition">
-                Login
-            </a>
-
-        {% endif %}
-
+        </div>
     </div>
-
 </nav>

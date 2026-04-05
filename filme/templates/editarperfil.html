@@ -1,11 +1,54 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-Editar Perfil
+Editar perfil | Hashflix
 {% endblock %}
 
 {% block content %}
-    Página de Edição de Perfil!
+<main class="min-h-[calc(100vh-5rem)] bg-zinc-950">
+    <div class="relative flex min-h-[calc(100vh-5rem)] items-center justify-center px-4 py-16">
+        <div class="absolute inset-0 bg-cover bg-center opacity-30"
+             style="background-image: url('{% static 'images/background_netflix.jpg' %}');"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-950/95 to-zinc-950"></div>
 
+        <div class="relative z-10 w-full max-w-md">
+            <div class="rounded-2xl border border-white/10 bg-zinc-900/85 p-8 shadow-2xl backdrop-blur-md">
+                <p class="text-center text-sm font-medium uppercase tracking-wider text-zinc-500">
+                    Perfil
+                </p>
+                <h1 class="mt-1 text-center text-2xl font-semibold tracking-tight text-white">
+                    {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}
+                </h1>
+
+                <form method="post" class="mt-8">
+                    {% csrf_token %}
+                    <fieldset class="border-0 p-0">
+                        <legend class="mb-4 w-full border-b border-white/10 pb-3 text-left text-sm font-medium text-zinc-300">
+                            Dados da conta
+                        </legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <button class="mt-2 w-full rounded-lg bg-red-600 py-3 text-base font-semibold text-white transition hover:bg-red-700" type="submit">
+                        Salvar alterações
+                    </button>
+                </form>
+
+                <p class="mt-6 text-center text-sm">
+                    <a href="{% url 'filme:alterarsenha' %}" class="text-zinc-400 underline-offset-2 hover:text-white hover:underline">
+                        Alterar senha
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-zinc-800 px-6 py-8">
+        <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-sm text-zinc-500 sm:flex-row">
+            <span>&copy; 2026 Hashflix</span>
+            <span>Python e Django</span>
+        </div>
+    </footer>
+</main>
 {% endblock %}

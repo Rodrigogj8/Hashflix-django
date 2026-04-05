@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Entrar | Hashflix
+Criar conta | Hashflix
 {% endblock %}
 
 {% block content %}
@@ -16,10 +16,10 @@ Entrar | Hashflix
         <div class="relative z-10 w-full max-w-md">
             <div class="rounded-2xl border border-white/10 bg-zinc-900/85 p-8 shadow-2xl backdrop-blur-md">
                 <h1 class="text-center text-2xl font-semibold tracking-tight text-white">
-                    Entrar na sua conta
+                    Criar conta
                 </h1>
                 <p class="mt-2 text-center text-sm text-zinc-400">
-                    Use seu usuário e senha para continuar.
+                    Preencha os dados abaixo para se cadastrar.
                 </p>
 
                 <form method="post" class="mt-8">
@@ -28,14 +28,14 @@ Entrar | Hashflix
                         {{ form|crispy }}
                     </fieldset>
                     <button class="mt-2 w-full rounded-lg bg-red-600 py-3 text-base font-semibold text-white transition hover:bg-red-700" type="submit">
-                        Entrar
+                        Cadastrar
                     </button>
                 </form>
 
                 <p class="mt-6 text-center text-sm text-zinc-400">
-                    Ainda não tem conta?
-                    <a href="{% url 'filme:criarconta' %}" class="font-medium text-white underline-offset-2 hover:text-red-400 hover:underline">
-                        Criar conta
+                    Já tem conta?
+                    <a href="{% url 'filme:login' %}" class="font-medium text-white underline-offset-2 hover:text-red-400 hover:underline">
+                        Entrar
                     </a>
                 </p>
             </div>

@@ -1,16 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}
-Home | Netflix Clone
+Catálogo | Hashflix
 {% endblock title %}
 
 {% block head %}
 <style>
 
-/* ===== FUNDO ===== */
-main {
-    background: #0f0f0f;
-}
 
 /* ===== HERO ===== */
 
@@ -83,7 +79,7 @@ main {
     opacity: 1;
 }
 
-/* ===== SCROLL BONITO ===== */
+/* Barra de rolagem horizontal */
 
 .scrollbar-hide::-webkit-scrollbar {
     height: 6px;
@@ -110,7 +106,7 @@ section h2 {
 
 {% block content %}
 
-<main class="min-h-screen text-white overflow-x-hidden">
+<main class="min-h-screen overflow-x-hidden bg-zinc-950 text-white">
 
     {% if filmes.first %}
     <!-- HERO -->
@@ -124,10 +120,10 @@ section h2 {
         <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
         <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black to-transparent"></div>
 
-        <div class="relative z-10 h-full flex items-center px-16 hero-content">
+        <div class="relative z-10 flex h-full items-center px-4 sm:px-10 lg:px-16 hero-content">
             <div class="max-w-xl">
 
-                <h1 class="text-6xl font-extrabold mb-6 leading-tight">
+                <h1 class="mb-6 text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
                     {{ filme_destaques.titulo }}
                 </h1>
 
@@ -135,15 +131,17 @@ section h2 {
                     {{ filme_destaques.descricao|slice:":220" }}...
                 </p>
 
-                <div class="flex gap-4">
+                <div class="flex flex-wrap gap-4">
                     <a href="{% url 'filme:detalhesfilme' filme_destaques.pk %}"
-                       class="btn-modern bg-white text-black px-8 py-3 rounded-md text-lg font-semibold">
-                        ▶ Assistir
+                       class="btn-modern inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 text-lg font-semibold text-black">
+                        <ion-icon name="play-outline" class="text-2xl" aria-hidden="true"></ion-icon>
+                        Assistir
                     </a>
 
                     <a href="{% url 'filme:detalhesfilme' filme_destaques.pk %}"
-                       class="btn-modern bg-gray-600/70 px-8 py-3 rounded-md text-lg font-semibold">
-                        ℹ Mais informações
+                       class="btn-modern inline-flex items-center gap-2 rounded-lg bg-zinc-600/80 px-8 py-3 text-lg font-semibold text-white">
+                        <ion-icon name="information-circle-outline" class="text-2xl" aria-hidden="true"></ion-icon>
+                        Mais informações
                     </a>
                 </div>
 
@@ -156,7 +154,7 @@ section h2 {
 
     <!-- NOVIDADES -->
     {% if lista_filmes_recentes %}
-    <section class="mt-14 px-16">
+    <section class="mt-14 px-4 sm:px-10 lg:px-16">
         <h2 class="text-2xl mb-6">Novidades</h2>
 
         <div class="flex gap-6 overflow-x-auto scrollbar-hide pb-4">
@@ -180,8 +178,8 @@ section h2 {
 
     <!-- EM ALTA -->
     {% if lista_filmes_emalta %}
-    <section class="mt-16 px-16">
-        <h2 class="text-2xl mb-6">Em Alta</h2>
+    <section class="mt-16 px-4 sm:px-10 lg:px-16">
+        <h2 class="text-2xl mb-6">Em alta</h2>
 
         <div class="flex gap-6 overflow-x-auto scrollbar-hide pb-4">
 
@@ -203,7 +201,7 @@ section h2 {
 
 
     <!-- TODOS -->
-    <section class="mt-20 px-16 pb-20">
+    <section class="mt-20 px-4 pb-20 sm:px-10 lg:px-16">
         <h2 class="text-2xl mb-8">Todos os Filmes</h2>
 
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
@@ -222,8 +220,8 @@ section h2 {
 
         </div>
     </section>
-     <section class="mt-16 px-16">
-        <h2 class="text-2xl mb-6">Filmes Vistos</h2>
+     <section class="mt-16 px-4 sm:px-10 lg:px-16">
+        <h2 class="text-2xl mb-6">Continuar assistindo</h2>
 
         <div class="flex gap-6 overflow-x-auto scrollbar-hide pb-4">
 
